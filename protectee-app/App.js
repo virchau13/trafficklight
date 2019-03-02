@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.bg_green,
         paddingLeft: Dimensions.get('window').width/10,
         justifyContent: 'center',
-        paddingBottom: Dimensions.get('window').width/20
+        paddingBottom: Dimensions.get('window').width/4
     },
 });
 
@@ -44,14 +44,10 @@ export default class App extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={{fontWeight: "bold", fontSize: Dimensions.get('window').height/20, margin: 0}}>You're safe</Text>
-                <Text style={{fontSize: Dimensions.get('window').height/15}}>{sectotime(this.state.time)}</Text>
-                <View style={{width: Dimensions.get('window').width/2}}><Button title="I'm here, reset timer" color={colors.primary} onPress={()=>{}}></Button></View>
+                <Text style={{fontWeight: "bold", fontSize: Dimensions.get('window').height/20, margin: 0, opacity: 0.7}}>You're safe</Text>
+                <Text style={{fontSize: Dimensions.get('window').height/15, marginTop: -10, opacity: 0.7}}>{sectotime(this.state.time)}</Text>
+                <View style={{width: Dimensions.get('window').width/2, paddingTop: 20}}><Button title="I'm here, reset timer" color={colors.primary} onPress={()=>{}}></Button></View>
             </View>
         );
     }
 }
-
-
-
-
