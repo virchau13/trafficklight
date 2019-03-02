@@ -1,0 +1,14 @@
+{
+  "name": "haction-2019-back",
+  "version": "0.0.1",
+  "description": "backend",
+  "main": "index.js",
+  "repository": "https://github.com/virchau13/haction-2019/",
+  "author": "virchau13",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "express": "^4.16.4",
+    "uuid": "^3.3.2"
+  }
+}
