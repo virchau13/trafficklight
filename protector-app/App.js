@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, Dimensions } from 'react-native';
-import { createMaterialTopTabNavigator, createAppContainer } from 'react-navigation';
 
 const colors = {
     bg_green: "rgb(148,199,138)",
@@ -20,11 +19,16 @@ const styles = StyleSheet.create({
 
 
 function sectotime(t){
+    let n = 0;
+    if(t < 0){
+        n = 1;
+        t = -t;
+    }
     let hours = Math.floor(t / 3600);
     t %= 3600;
     let minutes = Math.floor(t / 60);
     let seconds = t % 60;
-    return `${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
+    return (n ? '-' : '') + `${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
 }
 
 
@@ -32,7 +36,7 @@ export default class App extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            time: 166344
+            time: 5
         }
         this.startTimer();
     }
