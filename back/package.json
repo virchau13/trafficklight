@@ -8,6 +8,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.16.4",
     "uuid": "^3.3.2"
   }

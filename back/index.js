@@ -1,7 +1,11 @@
 let express = require('express'); 
 let crypto = require('crypto');
 let uuid = require('uuid/v1');
+let cors = require('cors');
 let app = express();
+
+app.use(cors());
+console.log("!");
 
 let users = {
     template: {
@@ -14,17 +18,24 @@ let users = {
     }
 };
 
+
+app.all('/*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    next();
+});
+
 app.get('/', function(req, res){
     res.status(418);
     res.send("I'm a teapot");
 });
 
-app.post('/refresh', function(req, res){
+app.post('/refresh', function(req, res, next){
     if(req.query.uid in users){
-        if(users[req.query.uid] == crypto.createHmac('sha256', req.query.pw).digest('hex')){
+        if(users[req.query.uid].pw == crypto.createHmac('sha256', req.query.pw).digest('hex')){
             users[req.query.uid].last_refresh = Date.now();
             res.status(200);
-            res.send('Success');
+            res.send((Date.now() - users[req.query.uid].last_refresh).toString());
         } else {
             res.status(403);
             res.send("Wrong password");
@@ -33,12 +44,14 @@ app.post('/refresh', function(req, res){
         res.status(400);
         res.send("Invalid UID");
     }
+    //next();
 });
 
 app.get('/time', function(req, res){
+    console.log(req.query.uid, users[req.query.uid].last_refresh, typeof users[req.query.uid].last_refresh, (Date.now() - users[req.query.uid].last_refresh));
     if(req.query.uid in users){
         res.status(200);
-        res.send(Date.now() - users[req.query.uid].last_refresh);
+        res.send((Date.now() - users[req.query.uid].last_refresh).toString());
     } else {
         res.status(400);
         res.send("Invalid UID");
@@ -64,7 +77,8 @@ app.post('/terminate', function(req, res){
     }
 });
 
-app.post('/create', function(req, res){
+app.post('/create', function(req, res, next){
+    console.log("hi!");
     let uid = uuid();
     console.log(uid);
     users[uid] = users.template;
@@ -72,8 +86,11 @@ app.post('/create', function(req, res){
     users[uid].pw = crypto.createHmac('sha256', req.query.pw).digest('hex');
     users[uid].in_location = (req.query.in_location == "1");
     users[uid].last_refresh = Date.now();
+    console.log(uid, users[uid]);
     res.status(200);
     res.send(uid);
+    next();
 });
+
 
 app.listen(5000);

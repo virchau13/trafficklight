@@ -1,9 +1,9 @@
 {
-  "devToolsPort": 19002,
+  "devToolsPort": 19003,
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerNgrokUrl": "https://3w-9yj.anonymous.protector-app.exp.direct",
+  "packagerNgrokUrl": "https://packager.3w-9yj.anonymous.protector-app.exp.direct",
+  "ngrokPid": 48695
 }

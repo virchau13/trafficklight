@@ -29,20 +29,24 @@ export default class App extends React.Component {
         this.state = {
             time: 5,
             bg: colors.bg_green,
-            trusted: true
-        }
-        this.startTimer();
-    }
-    startTimer(){
+            trusted: true,
+        }/*
+        fetch("http://10.190.0.73:5000/time?uid=" + this.state.guid, {
+            method: "GET"
+        }).then(res=>res.text()).then(data=>{
+            console.debug(data);
+            this.setState({time: Number(data)});
+        });*/
         this.timer = setInterval(()=>{
             this.setState({
                 time: this.state.time-1,
                 bg: (this.state.time-1 <= 0 ? colors.bg_red : colors.bg_green),
-                trusted: true
+                trusted: true,
             });
         }, 1000);
-
+        
     }
+
     render() {
         return (
             <View style={{flex: 1, backgroundColor: this.state.bg, paddingLeft: Dimensions.get('window').width/10, justifyContent: 'center', paddingBottom: Dimensions.get('window').width/4}}>
